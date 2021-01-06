@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "AddCustomer";
+}
+
+<h2>Add Customer</h2>
+<hr />
+<form action="/Customers/AddCustomer" method="post">
+    <div class="form-group">
+        <input class="form-control" type="text" name="CustomerFullName" placeholder="Customer Full Name" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="email" name="CustomerEmail" placeholder="Customer Email" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="tel"  name="CustomerPhoneNumber" placeholder="Customer Phone Number" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="submit" value="Add" />
+    </div>
+</form>
+

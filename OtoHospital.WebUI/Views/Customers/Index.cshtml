@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using OtoHospital.Entities.Concrete;
+@model  List<Customer>
+<h1>Customers</h1>
+<hr/>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">FullName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Cars</th>
+            <th scope="col">Appointments</th>
+            <th scope="col">WorkOrders</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1;}
+        @foreach (var customer in Model)
+        {
+        <tr>
+            <td>@i</td>
+            <td>@customer.CustomerFullName</td>
+            <td>@customer.CustomerEmail</td>
+            <td>@customer.CustomerPhoneNumber</td>
+            <td scope="col"><a class="btn btn-danger" href="/Cars/CustomerIsCars/@customer.CustomerId">Go</a></td>
+            <td scope="col"><a class="btn btn-info" href="/Appointments/GetListAppointmentByCustomerId/@customer.CustomerId">Go</a></td>
+            <td scope="col"><a class="btn btn-warning" href="/WorkOrders/GetListWorkOrderByCustomerId/@customer.CustomerId">Go</a></td>
+        </tr>
+            i++;
+        }
+
+    </tbody>
+</table>

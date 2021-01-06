@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "GetListWorkOrderByCustomerId";
+}
+
+
+@{
+    ViewBag.Title = "GetListAppointmentByCustomerId";
+}
+@using System
+@using OtoHospital.Entities.Concrete
+@using OtoHospital.Entities.Dtos
+
+
+@model  Tuple<List<CustomerIsWorkOrderDto>, Customer>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Customer Info</h2>
+        <ul>
+            <li>@Model.Item2.CustomerFullName</li>
+            <li>@Model.Item2.CustomerEmail</li>
+            <li>@Model.Item2.CustomerPhoneNumber</li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Car Plaque</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Finish Date</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">WorkOrders</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (CustomerIsWorkOrderDto item in Model.Item1)
+                {
+
+                <tr>
+                    <td>@i</td>
+                    <td>@item.CarPlaque</td>
+                    <td>@item.WorkOrderStartDate</td>
+                    <td>@item.WorkOrderFinishDate</td>
+                    <td>@item.CarBrand</td>
+                    <td>@item.CarModel</td>
+                    @if (item.WorkOrderFinishDate == null)
+                    {
+                        <td><a href="/Workorders/FinishWork/@item.WorkOrderId?customerId=@item.CustomerId" class="btn btn-warning" >Finish Work</a></td>
+                    }
+
+                </tr>
+                    i++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

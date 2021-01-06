@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "GetListAppointmentByCustomerId";
+}
+@using System
+@using OtoHospital.Entities.Concrete
+@using OtoHospital.Entities.Dtos
+
+
+@model  Tuple<List<CustomerIsAppointmentsDto>, Customer>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Customer Info</h2>
+        <ul>
+            <li>@Model.Item2.CustomerFullName</li>
+            <li>@Model.Item2.CustomerEmail</li>
+            <li>@Model.Item2.CustomerPhoneNumber</li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Car Plaque</th>
+                    <th scope="col">Appointments Date</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">WorkOrders</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (CustomerIsAppointmentsDto item in Model.Item1)
+                {
+
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.CarPlaque</td>
+                        <td>@item.AppointmentDate.ToLongDateString()</td>
+                        <td>@item.CarBrand</td>
+                        <td>@item.CarModel</td>
+                        <td><a class="btn btn-warning newWorkOrder" data-id="@item.CarId" data-plaque="@item.CarPlaque">new work order</a></td>
+                    </tr>
+                    i++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6 hidden" id="newWorkOrderFormDiv">
+        <h2>Create New Work Order</h2>
+        <form action="/WorkOrders/CreateWorkOrder" method="post">
+            <input type="hidden" name="CustomerId" value="@Model.Item2.CustomerId" />
+            <input type="hidden" name="CarId" id="CarId" />
+            <div class="form-group">
+                <input class="form-control" type="text" id="CarPlaque" placeholder="Car Plaque" readonly />
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="date" name="WorkOrderStartDate" placeholder="Appointment Date" />
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="WorkOrderDescription" placeholder="Appointment Description"></textarea>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="submit" value="Add" />
+            </div>
+        </form>
+    </div>
+</div>
+
